@@ -4,8 +4,11 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
+    // Use IP not hostname — corporate DNS often blocks "localhost" (EAI_FAIL)
+    host: '127.0.0.1',
+    port: 5173,
     proxy: {
-      '/api': 'http://localhost:3001',
+      '/api': 'http://127.0.0.1:3001',
     },
   },
 })

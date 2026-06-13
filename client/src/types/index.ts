@@ -15,6 +15,27 @@ export interface EditorFile {
   id: string
   name: string
   content: string
+  savedContent: string
+}
+
+export interface EditorViewSettings {
+  lineNumbers: boolean
+  minimap: boolean
+  wordWrap: boolean
+  showWhitespace: boolean
+  fontSize: number
+}
+
+export const DEFAULT_EDITOR_VIEW_SETTINGS: EditorViewSettings = {
+  lineNumbers: true,
+  minimap: false,
+  wordWrap: true,
+  showWhitespace: false,
+  fontSize: 14,
+}
+
+export function isFileDirty(file: EditorFile): boolean {
+  return file.content !== file.savedContent
 }
 
 export function languageFromFilename(filename: string): string {
@@ -39,22 +60,22 @@ export function languageFromFilename(filename: string): string {
       return 'plaintext'
   }
 }
+function sampleFile(
+  id: string,
+  name: string,
+  content: string,
+): EditorFile {
+  return { id, name, content, savedContent: content }
+}
 
 export const SAMPLE_FILES: EditorFile[] = [
-  {
-    id: '1',
-    name: 'index.ts',
-    content: `export function greet(name: string): string {
+  sampleFile('1', 'index.ts', `export function greet(name: string): string {
   return \`Hello, \${name}!\`
 }
 
 const message = greet('CodeSync')
-`,
-  },
-  {
-    id: '2',
-    name: 'app.tsx',
-    content: `import { useState } from 'react'
+`),
+  sampleFile('2', 'app.tsx', `import { useState } from 'react'
 
 export function App() {
   const [count, setCount] = useState(0)
@@ -68,12 +89,8 @@ export function App() {
     </div>
   )
 }
-`,
-  },
-  {
-    id: '3',
-    name: 'styles.css',
-    content: `body {
+`),
+  sampleFile('3', 'styles.css', `body {
   margin: 0;
   font-family: system-ui, sans-serif;
   background-color: #1e1e1e;
@@ -84,6 +101,6 @@ export function App() {
   width: 240px;
   background-color: #252526;
 }
-`,
-  },
+`),
 ]
+

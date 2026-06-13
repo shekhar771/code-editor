@@ -6,6 +6,7 @@ interface SidebarProps {
   projectName: string
   files: EditorFile[]
   activeFileId: string | null
+  dirtyFileIds: ReadonlySet<string>
   userName: string
   onSelectFile: (fileId: string) => void
   onDeleteFile: (fileId: string) => void
@@ -17,6 +18,7 @@ export function Sidebar({
   projectName,
   files,
   activeFileId,
+  dirtyFileIds,
   userName,
   onSelectFile,
   onDeleteFile,
@@ -43,6 +45,7 @@ export function Sidebar({
         <FileTree
           files={files}
           activeFileId={activeFileId}
+          dirtyFileIds={dirtyFileIds}
           onSelectFile={onSelectFile}
           onDeleteFile={onDeleteFile}
         />
