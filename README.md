@@ -24,7 +24,7 @@ npm run dev
 ```bash
 cd client
 npm run build
-```
+``` 
 
 ## Project structure
 
